@@ -34,6 +34,7 @@ const CodeEditor = () => {
             height="75vh"
             theme="vs-dark"
             defaultLanguage={language}
+            language={language}
             defaultValue={CODE_SNIPPETS[language]}
             value={value}
             onMount={onMount}
