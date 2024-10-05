@@ -15,7 +15,7 @@ const Output = ({ language, editorRef }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const runColde = async () => {
+  const runCode = async () => {
     const souceCode = editorRef.current?.getValue();
     if (!souceCode) return;
 
@@ -44,7 +44,7 @@ const Output = ({ language, editorRef }: Props) => {
       <Text mb={2} fontSize="lg">
         Output
       </Text>
-      <Button colorScheme="green" variant="outline" mb={4} onClick={runColde} isLoading={isLoading}>
+      <Button colorScheme="green" variant="outline" mb={4} onClick={runCode} isLoading={isLoading}>
         Run Code
       </Button>
       <Box
