@@ -2,18 +2,18 @@ import { Box, HStack } from "@chakra-ui/react";
 import Editor, { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import { useRef, useState } from "react";
-import LanguageSelector from "./LanguageSelector";
-import { CODE_SNIPPETS, LanguagesNames } from "../constants";
-import Output from "./Output";
+import { CODE_SNIPPETS, FileTypes } from "../constants";
+import TabContainer from "./TabContainer";
 
 const CodeEditor = () => {
-  const [value, setValue] = useState("");
-  const [language, setLanguage] = useState<LanguagesNames>("javascript");
+  const [htmlContents, setHtmlContents] = useState(CODE_SNIPPETS.html);
+  const [jsContents, setJsContents] = useState(CODE_SNIPPETS.javascript);
+
+  const [language, setLanguage] = useState<FileTypes>("html");
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
-  const onSelect = (language: LanguagesNames) => {
-    setLanguage(language);
-    setValue(CODE_SNIPPETS[language]);
+  const onSelect = (tab: FileTypes) => {
+    setLanguage(tab);
   };
 
   const onMount: OnMount = (editor) => {
@@ -22,26 +22,32 @@ const CodeEditor = () => {
   };
 
   const handleChange = (value?: string) => {
-    setValue(value || "");
+    switch (language) {
+      case "html": {
+        return setHtmlContents(value || "");
+      }
+      case "javascript": {
+        return setJsContents(value || "");
+      }
+    }
   };
 
   return (
     <Box>
       <HStack spacing={4}>
         <Box w="50%">
-          <LanguageSelector language={language} onSelect={onSelect} />
+          <TabContainer active={language} onSelect={onSelect} />
           <Editor
             height="75vh"
             theme="vs-dark"
             defaultLanguage={language}
             language={language}
             defaultValue={CODE_SNIPPETS[language]}
-            value={value}
+            value={language === "html" ? htmlContents : jsContents}
             onMount={onMount}
             onChange={handleChange}
           />
         </Box>
-        <Output language={language} editorRef={editorRef} />
       </HStack>
     </Box>
   );
