@@ -21,3 +21,5 @@ export type CodeSnipet = {
 };
 
 export type FileTypes = "javascript" | "css" | "html";
+
+export type ContextType = "browser" | "console" | "split";

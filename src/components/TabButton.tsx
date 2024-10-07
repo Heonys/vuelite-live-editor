@@ -1,27 +1,26 @@
-import { FileTypes } from "@/types";
-import { Html5Icon, JavascriptIcon } from "@/icons";
 import { HStack, Text } from "@chakra-ui/react";
 
-type Props = {
+type Props<T> = {
   name: string;
-  languages: FileTypes;
-  onSelect: (tab: FileTypes) => void;
+  value: T;
+  onSelect: (tab: T) => void;
+  icon?: React.ReactElement;
   isActive?: boolean;
 };
 
-const TabButton = ({ name, isActive, languages, onSelect }: Props) => {
+function TabButton<T>({ name, isActive, value, icon, onSelect }: Props<T>) {
   return (
     <button
       className={`py-2 px-4 text-gray-300 hover:text-white transition duration-300
       ${isActive ? "bg-gray-800 border-b-2 border-blue-500" : ""}`}
-      onClick={() => onSelect(languages)}
+      onClick={() => onSelect(value)}
     >
       <HStack>
-        {languages === "html" ? <Html5Icon color="#E34F26" /> : <JavascriptIcon color="#F7DF1E" />}
+        {icon}
         <Text>{name}</Text>
       </HStack>
     </button>
   );
-};
+}
 
 export default TabButton;

@@ -1,20 +1,23 @@
+import { useEffect, useRef, useState } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import Editor, { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
-import type { FeatureNames, FileTypes } from "@/types";
-import { useEffect, useRef, useState } from "react";
+import type { ContextType, FeatureNames, FileTypes } from "@/types";
 import { CODE_SNIPPETS, createSrcDoc } from "../constants";
-import TabContainer from "../components/TabContainer";
+import TabGroup from "../components/TabGroup";
 import useDebounce from "../hooks/useDebounce";
-import LanguageSelector from "../components/LanguageSelector";
+import FeaturesSelector from "../components/FeaturesSelector";
 import { useParams } from "react-router-dom";
 import Iframe from "@/components/Iframe";
+import Console from "@/components/Console";
 
 const CodeEditor = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const safeId = id || "v-bind";
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const [language, setLanguage] = useState<FileTypes>("html");
+  const [context, setContext] = useState<ContextType>("browser");
+  const [consoleValues, setConsoleValues] = useState<any[]>([]);
 
   const [htmlContents, setHtmlContents] = useState(CODE_SNIPPETS[safeId].html);
   const [jsContents, setJsContents] = useState(CODE_SNIPPETS[safeId].javascript);
@@ -22,8 +25,20 @@ const CodeEditor = () => {
   const srcDoc = createSrcDoc(htmlContents, jsContents);
   const debouncedSrcDoc = useDebounce(srcDoc, 500);
 
-  const onSelectFile = (tab: FileTypes) => {
-    setLanguage(tab);
+  const onClear = () => {
+    setConsoleValues([]);
+  };
+
+  const onSelect = (tab: FileTypes | ContextType) => {
+    if (["html", "javascript"].includes(tab)) {
+      setLanguage(tab as FileTypes);
+    } else {
+      setContext(tab as ContextType);
+    }
+  };
+
+  const onConsole = (value: any[]) => {
+    setConsoleValues((prev) => [...prev, ...value]);
   };
 
   const onMount: OnMount = (editor) => {
@@ -45,14 +60,15 @@ const CodeEditor = () => {
   useEffect(() => {
     setHtmlContents(CODE_SNIPPETS[safeId].html);
     setJsContents(CODE_SNIPPETS[safeId].javascript);
+    onClear();
   }, [safeId]);
 
   return (
     <Box minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
+      <FeaturesSelector feature={safeId} />
       <HStack spacing={4}>
         <Box w="50%">
-          <LanguageSelector feature={safeId} />
-          <TabContainer active={language} onSelect={onSelectFile} />
+          <TabGroup direction="left" active={language} onSelect={onSelect} />
           <Editor
             height="75vh"
             theme="vs-dark"
@@ -62,8 +78,20 @@ const CodeEditor = () => {
             onChange={handleChange}
           />
         </Box>
-        <Box w="50%" h="75vh" bg="white">
-          <Iframe srcDoc={debouncedSrcDoc} />
+        <Box w="50%">
+          <TabGroup direction="right" active={language} onSelect={onSelect} />
+          {context === "browser" && <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />}
+          {context === "console" && <Console value={consoleValues} onClear={onClear} />}
+          {context === "split" && (
+            <HStack h="75vh">
+              <Box w="50%">
+                <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />
+              </Box>
+              <Box w="50%">
+                <Console value={consoleValues} onClear={onClear} />
+              </Box>
+            </HStack>
+          )}
         </Box>
       </HStack>
     </Box>

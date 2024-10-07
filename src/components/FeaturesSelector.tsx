@@ -4,13 +4,13 @@ import { FeatureNames } from "@/types";
 import { useNavigate } from "react-router-dom";
 import { ArrowDownIcon } from "@/icons";
 
-const languages = Object.entries(FEATURES_TITLES);
+const features = Object.entries(FEATURES_TITLES);
 
 type Props = {
   feature: FeatureNames;
 };
 
-const LanguageSelector = ({ feature }: Props) => {
+const FeaturesSelector = ({ feature }: Props) => {
   const navigate = useNavigate();
   const handleSelector = (name: FeatureNames) => {
     navigate(`/feature/${name}`);
@@ -23,7 +23,7 @@ const LanguageSelector = ({ feature }: Props) => {
           {feature}
         </MenuButton>
         <MenuList bg="#110c1b">
-          {languages.map(([feat, title]) => {
+          {features.map(([feat, title]) => {
             return (
               <MenuItem
                 key={feat}
@@ -42,4 +42,4 @@ const LanguageSelector = ({ feature }: Props) => {
   );
 };
 
-export default LanguageSelector;
+export default FeaturesSelector;

@@ -511,6 +511,13 @@ export function createSrcDoc(htmlContents: string, jsContents: string) {
   return `
     <html>
       <head><script src="https://unpkg.com/vue-lite-js@latest"></script></head>
+      <script>
+        const _log = console.log;
+        console.log = function (...rest) {
+          window.parent.postMessage({ source: "iframe", message: rest }, "*" );
+          // _log.apply(console, arguments);
+        };
+      </script>
       <body>${htmlContents}</body>
       <script>
         for (const key in Vuelite) {

@@ -27,6 +27,7 @@ export default tseslint.config(
       ],
       "prettier/prettier": "error",
       "@typescript-eslint/no-explicit-any": "off", 
+      '@typescript-eslint/ban-ts-comment': 'off'
     },
   },
 )
