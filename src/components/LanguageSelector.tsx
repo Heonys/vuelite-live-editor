@@ -1,35 +1,32 @@
 import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
-import { LANGUAGE_VERSIONS, LanguagesNames } from "../constants";
+import { FEATURE_NAMES, FEATURES } from "../constants";
 
-const languages = Object.entries(LANGUAGE_VERSIONS);
+const languages = Object.entries(FEATURES);
 
 type Props = {
-  language: LanguagesNames;
-  onSelect: (lang: LanguagesNames) => void;
+  feature: FEATURE_NAMES;
+  // onSelect: (lang: LanguagesNames) => void;
 };
 
-const LanguageSelector = ({ language, onSelect }: Props) => {
+const LanguageSelector = ({ feature }: Props) => {
   return (
     <Box ml={2} mb={4}>
-      <Text mb={2} fontSize="lg">
-        Language: {language}
-      </Text>
       <Menu isLazy>
-        <MenuButton as={Button}>{language}</MenuButton>
+        <MenuButton as={Button}>{feature}</MenuButton>
         <MenuList bg="#110c1b">
-          {languages.map(([lang, version]) => {
+          {languages.map(([lang]) => {
             return (
               <MenuItem
                 key={lang}
-                onClick={() => onSelect(lang as LanguagesNames)}
-                color={lang === language ? "blue.400" : ""}
-                bg={lang === language ? "gray.700" : "transparent"}
+                // onClick={() => onSelect(lang as LanguagesNames)}
+                color={lang === feature ? "blue.400" : ""}
+                bg={lang === feature ? "gray.700" : "transparent"}
                 _hover={{ color: "blue.400", bg: "gray.900" }}
               >
                 {lang}
                 &nbsp;
                 <Text as="span" color="gray.600" fontSize="sm">
-                  ({version})
+                  ("1.2.3")
                 </Text>
               </MenuItem>
             );
