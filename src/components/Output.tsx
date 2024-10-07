@@ -1,11 +1,10 @@
 import { Box, Button, Text, useToast } from "@chakra-ui/react";
 import type { editor } from "monaco-editor";
 import { excuteCode } from "../api/piston";
-import { LanguagesNames } from "../constants";
 import { useState } from "react";
 
 type Props = {
-  language: LanguagesNames;
+  language: "html" | "javascript" | "css";
   editorRef: React.MutableRefObject<editor.IStandaloneCodeEditor | undefined>;
 };
 

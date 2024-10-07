@@ -1,4 +1,6 @@
-import { FileTypes } from "../constants";
+import { FileTypes } from "@/types";
+import { Html5Icon, JavascriptIcon } from "@/icons";
+import { HStack, Text } from "@chakra-ui/react";
 
 type Props = {
   name: string;
@@ -14,7 +16,10 @@ const TabButton = ({ name, isActive, languages, onSelect }: Props) => {
       ${isActive ? "bg-gray-800 border-b-2 border-blue-500" : ""}`}
       onClick={() => onSelect(languages)}
     >
-      {name}
+      <HStack>
+        {languages === "html" ? <Html5Icon color="#E34F26" /> : <JavascriptIcon color="#F7DF1E" />}
+        <Text>{name}</Text>
+      </HStack>
     </button>
   );
 };

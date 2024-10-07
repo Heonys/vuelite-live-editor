@@ -1,4 +1,4 @@
-import { FileTypes } from "../constants";
+import { FileTypes } from "@/types";
 import TabButton from "./TabButton";
 
 type Props = {

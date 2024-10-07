@@ -1,33 +1,38 @@
-import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
-import { FEATURE_NAMES, FEATURES } from "../constants";
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { FEATURES_TITLES } from "../constants";
+import { FeatureNames } from "@/types";
+import { useNavigate } from "react-router-dom";
+import { ArrowDownIcon } from "@/icons";
 
-const languages = Object.entries(FEATURES);
+const languages = Object.entries(FEATURES_TITLES);
 
 type Props = {
-  feature: FEATURE_NAMES;
-  // onSelect: (lang: LanguagesNames) => void;
+  feature: FeatureNames;
 };
 
 const LanguageSelector = ({ feature }: Props) => {
+  const navigate = useNavigate();
+  const handleSelector = (name: FeatureNames) => {
+    navigate(`/feature/${name}`);
+  };
+
   return (
     <Box ml={2} mb={4}>
       <Menu isLazy>
-        <MenuButton as={Button}>{feature}</MenuButton>
+        <MenuButton as={Button} rightIcon={<ArrowDownIcon />}>
+          {feature}
+        </MenuButton>
         <MenuList bg="#110c1b">
-          {languages.map(([lang]) => {
+          {languages.map(([feat, title]) => {
             return (
               <MenuItem
-                key={lang}
-                // onClick={() => onSelect(lang as LanguagesNames)}
-                color={lang === feature ? "blue.400" : ""}
-                bg={lang === feature ? "gray.700" : "transparent"}
+                key={feat}
+                onClick={() => handleSelector(feat as FeatureNames)}
+                color={feat === feature ? "blue.400" : ""}
+                bg={feat === feature ? "gray.700" : "transparent"}
                 _hover={{ color: "blue.400", bg: "gray.900" }}
               >
-                {lang}
-                &nbsp;
-                <Text as="span" color="gray.600" fontSize="sm">
-                  ("1.2.3")
-                </Text>
+                {title}
               </MenuItem>
             );
           })}

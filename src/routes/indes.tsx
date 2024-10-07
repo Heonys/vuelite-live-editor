@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Navigate to="main" replace />,
+        element: <Navigate to="v-bind" replace />,
       },
       {
         path: ":id",
