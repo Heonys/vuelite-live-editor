@@ -1,12 +1,22 @@
 import { ContextType, FileTypes } from "@/types";
 import TabButton from "./TabButton";
-import { BrowserIcon, ConsoleIcon, Html5Icon, JavascriptIcon, SplitIcon } from "@/icons";
-import { Flex } from "@chakra-ui/react";
+import {
+  BrowserIcon,
+  ConsoleIcon,
+  Html5Icon,
+  JavascriptIcon,
+  SplitIcon,
+  RightIcon,
+  LeftIcon,
+} from "@/icons";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 
 type Props = {
   direction: "left" | "right";
   active: FileTypes | ContextType;
   onSelect: (tab: FileTypes | ContextType) => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 };
 
 type TabList = {
@@ -46,21 +56,33 @@ const tabList: TabList = {
   ],
 };
 
-const TabGroup = ({ direction, active, onSelect }: Props) => {
+const TabGroup = ({ direction, active, onSelect, isCollapsed, onToggleCollapse }: Props) => {
   return (
-    <Flex>
-      {tabList[direction].map(({ name, type, icon }) => {
-        return (
-          <TabButton
-            key={name}
-            name={name}
-            icon={icon}
-            isActive={type === active}
-            value={type}
-            onSelect={onSelect}
-          />
-        );
-      })}
+    <Flex align="center" justify="space-between">
+      <Box>
+        {tabList[direction].map(({ name, type, icon }) => {
+          return (
+            <TabButton
+              key={name}
+              name={name}
+              icon={icon}
+              isActive={type === active}
+              value={type}
+              onSelect={onSelect}
+            />
+          );
+        })}
+      </Box>
+      {direction === "left" && (
+        <IconButton
+          variant="ghost"
+          icon={isCollapsed ? <LeftIcon size={20} /> : <RightIcon size={20} />}
+          aria-label="right split"
+          transition="transform 0.2s ease"
+          _hover={{ transform: "scale(1.1)" }}
+          onClick={onToggleCollapse}
+        />
+      )}
     </Flex>
   );
 };

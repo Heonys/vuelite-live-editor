@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client";
+import { RecoilRoot } from "recoil";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme.ts";
 import { RouterProvider } from "react-router-dom";
@@ -7,6 +8,8 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <ChakraProvider theme={theme}>
-    <RouterProvider router={router} />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   </ChakraProvider>,
 );

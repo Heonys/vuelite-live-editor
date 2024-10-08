@@ -20,7 +20,7 @@ const Iframe = ({ srcDoc, onConsole }: Props) => {
   }, [onConsole]);
 
   return (
-    <Box h="75vh" bg="white">
+    <Box h="80vh" bg="white">
       <iframe
         srcDoc={srcDoc}
         title="output"

@@ -10,7 +10,7 @@ import {
 import { FEATURES_TITLES } from "../constants";
 import { FeatureNames } from "@/types";
 import { useNavigate } from "react-router-dom";
-import { TriangleDownIcon } from "@/icons";
+import { SelectIcon } from "@/icons";
 
 const features = Object.entries(FEATURES_TITLES);
 
@@ -35,7 +35,7 @@ const FeaturesSelector = ({ feature }: Props) => {
           <MenuButton color="#3ca877" fontWeight="bold">
             <Flex align="center" gap={1}>
               {feature}
-              <TriangleDownIcon boxSize={2.5} color="gray.500" />
+              <SelectIcon boxSize={2.5} color="gray.500" />
             </Flex>
           </MenuButton>
         </Flex>

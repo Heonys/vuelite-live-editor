@@ -18,6 +18,11 @@ const CodeEditor = () => {
   const [language, setLanguage] = useState<FileTypes>("html");
   const [context, setContext] = useState<ContextType>("browser");
   const [consoleValues, setConsoleValues] = useState<any[]>([]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // const location = useLocation();
+  // const params = new URLSearchParams(location.search);
+  // console.log(params.get("id"));
 
   const [htmlContents, setHtmlContents] = useState(CODE_SNIPPETS[safeId].html);
   const [jsContents, setJsContents] = useState(CODE_SNIPPETS[safeId].javascript);
@@ -27,6 +32,10 @@ const CodeEditor = () => {
 
   const onClear = () => {
     setConsoleValues([]);
+  };
+
+  const onToggleCollapse = () => {
+    setIsCollapsed((prev) => !prev);
   };
 
   const onSelect = (tab: FileTypes | ContextType) => {
@@ -64,11 +73,17 @@ const CodeEditor = () => {
   }, [safeId]);
 
   return (
-    <HStack spacing={4}>
-      <Box w="50%" boxShadow="md">
-        <TabGroup direction="left" active={language} onSelect={onSelect} />
+    <HStack spacing={2}>
+      <Box w={isCollapsed ? "100%" : "50%"} boxShadow="md">
+        <TabGroup
+          direction="left"
+          active={language}
+          onSelect={onSelect}
+          isCollapsed={isCollapsed}
+          onToggleCollapse={onToggleCollapse}
+        />
         <Editor
-          height="75vh"
+          height="80vh"
           theme={editorTheme}
           language={language}
           value={language === "html" ? htmlContents : jsContents}
@@ -76,21 +91,23 @@ const CodeEditor = () => {
           onChange={handleChange}
         />
       </Box>
-      <Box w="50%" boxShadow="md">
-        <TabGroup direction="right" active={context} onSelect={onSelect} />
-        {context === "browser" && <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />}
-        {context === "console" && <Console value={consoleValues} onClear={onClear} />}
-        {context === "split" && (
-          <HStack h="75vh">
-            <Box w="50%">
-              <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />
-            </Box>
-            <Box w="50%">
-              <Console value={consoleValues} onClear={onClear} />
-            </Box>
-          </HStack>
-        )}
-      </Box>
+      {!isCollapsed && (
+        <Box w="50%" boxShadow="md">
+          <TabGroup direction="right" active={context} onSelect={onSelect} />
+          {context === "browser" && <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />}
+          {context === "console" && <Console value={consoleValues} onClear={onClear} />}
+          {context === "split" && (
+            <HStack h="80vh" spacing={0}>
+              <Box w="50%">
+                <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />
+              </Box>
+              <Box w="50%">
+                <Console value={consoleValues} onClear={onClear} />
+              </Box>
+            </HStack>
+          )}
+        </Box>
+      )}
     </HStack>
   );
 };

@@ -10,7 +10,7 @@ const Navbar = () => {
   const textColor = useColorModeValue("#0f0a19", "#ffffff");
 
   return (
-    <Box bg={bgColor} p={4} mb={3} boxShadow="md">
+    <Box bg={bgColor} p={4} mb={2} boxShadow="md">
       <Flex justify="space-between" align="center">
         <Flex align="center" gap="1rem">
           <Image
