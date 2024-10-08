@@ -1,4 +1,4 @@
-import { Flex, IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Flex, IconButton, Tooltip, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import FeaturesSelector from "./FeaturesSelector";
 import { FeatureNames } from "@/types";
 import { useParams } from "react-router-dom";
@@ -8,46 +8,65 @@ const NavActions = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const { colorMode, toggleColorMode } = useColorMode();
   const buttonColor = useColorModeValue("gray.700", "gray.300");
+  // const [encodedHtml, encodedJs] = useRecoilValue(encodedUriState);
+
+  const handleShareadLink = () => {
+    // const url = `${window.location.origin}${location.pathname}?html=${encodedHtml}&js=${encodedJs}`;
+    // console.log(url);
+    // navigate(`${location.pathname}?html=${encodedHtml}&js=${encodedJs}`);
+  };
+
+  const downloadProject = () => {};
 
   return (
     <Flex align="center" gap={2}>
       <FeaturesSelector feature={id || "v-bind"} />
-      <IconButton
-        variant="ghost"
-        aria-label="Toggle dark mode"
-        color={buttonColor}
-        icon={colorMode === "light" ? <MoonIcon boxSize={5} /> : <SunIcon boxSize={5} />}
-        onClick={toggleColorMode}
-        transition="transform 0.2s ease"
-        _hover={{ transform: "scale(1.2)" }}
-      />
-      <IconButton
-        variant="ghost"
-        color={buttonColor}
-        icon={<DownloadIcon boxSize={5} />}
-        aria-label="download"
-        transition="transform 0.2s ease"
-        _hover={{ transform: "scale(1.2)" }}
-      />
-      <IconButton
-        variant="ghost"
-        color={buttonColor}
-        icon={<LinkIcon boxSize={5} />}
-        aria-label="link"
-        transition="transform 0.2s ease"
-        _hover={{ transform: "scale(1.2)" }}
-      />
-      <IconButton
-        as="a"
-        href="https://github.com/Heonys/vue-lite-js"
-        target="_blank"
-        variant="ghost"
-        color={buttonColor}
-        icon={<GithubIcon size={22} />}
-        aria-label="github"
-        transition="transform 0.2s ease"
-        _hover={{ transform: "scale(1.2)" }}
-      />
+      <Tooltip label="Toggle dark mode">
+        <IconButton
+          variant="ghost"
+          aria-label="Toggle dark mode"
+          color={buttonColor}
+          icon={colorMode === "light" ? <MoonIcon boxSize={5} /> : <SunIcon boxSize={5} />}
+          onClick={toggleColorMode}
+          transition="transform 0.2s ease"
+          _hover={{ transform: "scale(1.2)" }}
+        />
+      </Tooltip>
+      <Tooltip label="Download project file">
+        <IconButton
+          variant="ghost"
+          color={buttonColor}
+          icon={<DownloadIcon boxSize={5} />}
+          aria-label="download"
+          transition="transform 0.2s ease"
+          _hover={{ transform: "scale(1.2)" }}
+          onClick={downloadProject}
+        />
+      </Tooltip>
+      <Tooltip label="Copy sharable URL">
+        <IconButton
+          variant="ghost"
+          color={buttonColor}
+          icon={<LinkIcon boxSize={5} />}
+          aria-label="link"
+          transition="transform 0.2s ease"
+          _hover={{ transform: "scale(1.2)" }}
+          onClick={handleShareadLink}
+        />
+      </Tooltip>
+      <Tooltip label="View on Github">
+        <IconButton
+          as="a"
+          href="https://github.com/Heonys/vue-lite-js"
+          target="_blank"
+          variant="ghost"
+          color={buttonColor}
+          icon={<GithubIcon size={22} />}
+          aria-label="github"
+          transition="transform 0.2s ease"
+          _hover={{ transform: "scale(1.2)" }}
+        />
+      </Tooltip>
     </Flex>
   );
 };

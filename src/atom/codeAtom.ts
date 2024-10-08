@@ -1,27 +1,49 @@
 import { atom, selector } from "recoil";
 
-export type User = {
-  username: string;
-  avatar_url: string;
-};
-
-export const userAtom = atom<User[]>({
-  key: "userAtom",
-  default: [],
+export const htmlState = atom({
+  key: "htmlState",
+  default: "",
 });
 
-export const userAddSelector = selector({
-  key: "AddItemAtom",
-  get: ({ get }) => get(userAtom),
-  set: ({ get, set }, newUsers) => {
-    const users = get(userAtom);
-    const newUser = (newUsers as User[])[users.length - 1];
-    const userExists = users.some((user) => user.username === newUser?.username);
+export const jsState = atom({
+  key: "jsState",
+  default: "",
+});
 
-    if (userExists) {
-      set(userAtom, users.slice(-5));
-    } else {
-      set(userAtom, (newUsers as User[]).slice(-5));
-    }
+export const encodedUriState = selector<[string, string]>({
+  key: "encodedUri",
+  get: ({ get }) => {
+    const encodedHtml = encodeURIComponent(get(htmlState));
+    const encodedJs = encodeURIComponent(get(jsState));
+    return [encodedHtml, encodedJs];
+  },
+});
+
+export const srcDocState = selector({
+  key: "srcDocState",
+  get: ({ get }) => {
+    const html = get(htmlState);
+    const js = get(jsState);
+    return `  
+    <html>
+        <head><script src="https://unpkg.com/vue-lite-js@latest"></script></head>
+        <script>
+          const _log = console.log;
+          console.log = function (...rest) {
+            window.parent.postMessage({ source: "iframe", message: rest }, "*" );
+            // _log.apply(console, arguments);
+          };
+        </script>
+        <body>${html}</body>
+        <script>
+          for (const key in Vuelite) {
+              if (Vuelite.hasOwnProperty(key)) {
+                  window[key] = Vuelite[key];
+              }
+          }
+          window.Vuelite = Vuelite.default
+          ${js}
+        </script>
+    </html>`;
   },
 });

@@ -5,7 +5,7 @@ import App from "@/App";
 
 const router = createBrowserRouter([
   {
-    path: pageRoutes.root, // "/"
+    path: pageRoutes.root,
     element: <Navigate to={pageRoutes.main} replace />,
   },
   {

@@ -9,6 +9,8 @@ import useDebounce from "../hooks/useDebounce";
 import { useParams } from "react-router-dom";
 import Iframe from "@/components/Iframe";
 import Console from "@/components/Console";
+import { useRecoilState } from "recoil";
+import { htmlState, jsState } from "@/atom/codeAtom";
 
 const CodeEditor = () => {
   const { id } = useParams<{ id: FeatureNames }>();
@@ -20,12 +22,8 @@ const CodeEditor = () => {
   const [consoleValues, setConsoleValues] = useState<any[]>([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // const location = useLocation();
-  // const params = new URLSearchParams(location.search);
-  // console.log(params.get("id"));
-
-  const [htmlContents, setHtmlContents] = useState(CODE_SNIPPETS[safeId].html);
-  const [jsContents, setJsContents] = useState(CODE_SNIPPETS[safeId].javascript);
+  const [htmlContents, setHtmlContents] = useRecoilState(htmlState);
+  const [jsContents, setJsContents] = useRecoilState(jsState);
 
   const srcDoc = createSrcDoc(htmlContents, jsContents);
   const debouncedSrcDoc = useDebounce(srcDoc, 500);
@@ -70,7 +68,7 @@ const CodeEditor = () => {
     setHtmlContents(CODE_SNIPPETS[safeId].html);
     setJsContents(CODE_SNIPPETS[safeId].javascript);
     onClear();
-  }, [safeId]);
+  }, [safeId, setHtmlContents, setJsContents]);
 
   return (
     <HStack spacing={2}>

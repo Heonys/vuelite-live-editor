@@ -5,6 +5,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FEATURES_TITLES } from "../constants";
@@ -31,10 +32,12 @@ const FeaturesSelector = ({ feature }: Props) => {
     <Box>
       <Menu isLazy>
         <Flex align="center" gap={2}>
-          <Box color={textColor}>Features</Box>
+          <Box color={textColor}>
+            <Text fontWeight="semibold">Pick a Feature</Text>
+          </Box>
           <MenuButton color="#3ca877" fontWeight="bold">
             <Flex align="center" gap={1}>
-              {feature}
+              <Text as="u">{feature}</Text>
               <SelectIcon boxSize={2.5} color="gray.500" />
             </Flex>
           </MenuButton>
