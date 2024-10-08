@@ -19,15 +19,13 @@ export const FEATURES_TITLES: Record<FeatureNames, string> = {
 
 export const CODE_SNIPPETS: Record<FeatureNames, CodeSnipet> = {
   "v-bind": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <input type="text" v-bind:value="title" @input="handleInput" />
     <div>{{ title }}</div>
     <input type="checkbox" :checked="isChecked" @change="handleCheck" />
     <span>{{ isChecked ? "checked" : "unChecked" }}</span>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -46,8 +44,7 @@ new Vuelite({
 });`,
   },
   "v-model": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <input type="text" v-model="title" />
     <div>{{ title }}</div>
 
@@ -67,8 +64,7 @@ new Vuelite({
         <option value="Angular">Angular</option>
     </select>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -81,8 +77,7 @@ new Vuelite({
 });`,
   },
   "another-directive": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div v-text="text"></div>
     <div v-html="world"></div>
     <div v-class="classData">class</div>
@@ -90,8 +85,7 @@ new Vuelite({
     <button v-on:click="increase">+</button>
 </div>
 `,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -125,14 +119,12 @@ new Vuelite({
 });`,
   },
   "directive-shortcut": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <input v-bind:value="title" v-bind:style="textStyle" v-on:input="handleInput" />
     <!-- 축약 표현 -->
     <input :value="title" :style="textStyle" @input="handleInput" />
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -153,8 +145,7 @@ new Vuelite({
 });`,
   },
   "inline-format-bind": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div :class="{ active: isActive, 'text-danger': hasError }">Active Status</div>
     <div :class="classData">Class Binding</div>
 
@@ -164,8 +155,7 @@ new Vuelite({
     <div v-bind="{ id: 'testId', class: 'testClass', customKey: 'customValue' }">Static Bindings</div>
     <div v-bind="objectBind">Dynamic Bindings</div>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -190,13 +180,11 @@ new Vuelite({
 });`,
   },
   "template-syntax": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div>first: {{ firstName }}, last: {{ lastName }}</div>
     <div>{{ checked ? "checked" : "unChecked" }} {{ 5 + 6 }}</div>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -208,8 +196,7 @@ new Vuelite({
 });`,
   },
   "expression-support": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <button @click="visible = !visible">click</button>
     <span v-show="visible && hasPermission">Visible</span>
     
@@ -226,8 +213,7 @@ new Vuelite({
     <p>{{ items[0] }}</p>
 </div>
 `,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -248,8 +234,7 @@ new Vuelite({
 });`,
   },
   "conditional-rendering": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div v-if="inputValue === '30'">{{ "Correct 😄" }}</div>
     <div v-else>{{ "10 + 20 = " }}</div>
     <input type="text" v-model="inputValue" /> 
@@ -259,8 +244,7 @@ new Vuelite({
         <div v-show="visible">{{ "👻" }}</div>
     </div>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -271,8 +255,7 @@ new Vuelite({
 });`,
   },
   "list-rendering": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div v-for="(value, key, index) in myObject" :key="index">
       <div>{{ \`\${key}로 시작하는 단어 \${value}\` }}</div>
     </div>
@@ -286,8 +269,7 @@ new Vuelite({
     </div>
 </div>
 `,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -306,13 +288,11 @@ new Vuelite({
 });`,
   },
   "lifecycle-hooks": {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <p>count: {{ count }}</p>
     <button @click="increment">++</button>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -345,14 +325,12 @@ new Vuelite({
 });`,
   },
   watch: {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <div>message: {{ message }}</div>
     <div>count: {{ count }}</div>
     <button @click="increment">count up</button>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -374,14 +352,12 @@ new Vuelite({
 });`,
   },
   ref: {
-    html: `
-<div id="app">
+    html: `<div id="app">
     <input type="text" ref="textInput" />
     <button @click="focusInput">Focus Input</button>
     <p>Current Value: {{ inputValue }}</p>
 </div>`,
-    javascript: `
-new Vuelite({
+    javascript: `new Vuelite({
     el: "#app",
     data() {
         return {
@@ -401,27 +377,25 @@ new Vuelite({
 });`,
   },
   "component-based": {
-    html: `
-  <div id="app">
-      <div class="title">Parent Component</div>
-      <input type="text" v-model="message">
-      <input type="checkbox" v-model="visible">
-      <span>{{ visible ? "🔓" : "🔒" }}</span>
-      <vue-propsviewer :propsdata="message" :handlecheck="handlecheck"></vue-propsviewer>
-      <vue-propsviewer :propsdata="message" :handlecheck="handlecheck"></vue-propsviewer>
-  </div>
+    html: `<div id="app">
+    <div class="title">Parent Component</div>
+    <input type="text" v-model="message">
+    <input type="checkbox" v-model="visible">
+    <span>{{ visible ? "🔓" : "🔒" }}</span>
+    <vue-propsviewer :propsdata="message" :handlecheck="handlecheck"></vue-propsviewer>
+    <vue-propsviewer :propsdata="message" :handlecheck="handlecheck"></vue-propsviewer>
+</div>
   
-  <template id="propsviewer">
-      <div id="wrapper">
-          <div class="title">Child Component</div>
-          <div>{{ message }}</div>
-          <div>{{ propsdata }}</div>
-          <button @click="handlecheck">event emit</button>
-      </div>
-  </template>`,
+<template id="propsviewer">
+    <div id="wrapper">
+        <div class="title">Child Component</div>
+        <div>{{ message }}</div>
+        <div>{{ propsdata }}</div>
+        <button @click="handlecheck">event emit</button>
+    </div>
+</template>`,
     css: ``,
-    javascript: `
-  new Vuelite({
+    javascript: `new Vuelite({
       el: "#app",
       data() {
           return {
@@ -466,8 +440,7 @@ new Vuelite({
   });`,
   },
   "composition-api": {
-    html: `
-<div id="app">
+    html: `<div id="app">
   <input type="text" v-model="message">
   <div>{{ message }}</div>
   <vue-child :propsmessage="message"></vue-child>
@@ -477,8 +450,7 @@ new Vuelite({
   <div>{{ message }}</div>
   <div>{{ propsmessage }}</div>
 </template>`,
-    javascript: `
-const ChildComponent = {
+    javascript: `const ChildComponent = {
   el: "#child",
   props: ["propsmessage"],
   data() {

@@ -3,12 +3,13 @@ import FeaturesSelector from "./FeaturesSelector";
 import { FeatureNames } from "@/types";
 import { useParams } from "react-router-dom";
 import { GithubIcon, SunIcon, MoonIcon, DownloadIcon, LinkIcon } from "@/icons";
+import { useZipDownload } from "@/hooks/useZipDownload";
 
 const NavActions = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const { colorMode, toggleColorMode } = useColorMode();
   const buttonColor = useColorModeValue("gray.700", "gray.300");
-  // const [encodedHtml, encodedJs] = useRecoilValue(encodedUriState);
+  const { downloadProject } = useZipDownload();
 
   const handleShareadLink = () => {
     // const url = `${window.location.origin}${location.pathname}?html=${encodedHtml}&js=${encodedJs}`;
@@ -16,10 +17,8 @@ const NavActions = () => {
     // navigate(`${location.pathname}?html=${encodedHtml}&js=${encodedJs}`);
   };
 
-  const downloadProject = () => {};
-
   return (
-    <Flex align="center" gap={2}>
+    <Flex align="center" gap={1}>
       <FeaturesSelector feature={id || "v-bind"} />
       <Tooltip label="Toggle dark mode">
         <IconButton
