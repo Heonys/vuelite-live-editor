@@ -1,8 +1,16 @@
-import { Box, Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { FEATURES_TITLES } from "../constants";
 import { FeatureNames } from "@/types";
 import { useNavigate } from "react-router-dom";
-import { ArrowDownIcon } from "@/icons";
+import { TriangleDownIcon } from "@/icons";
 
 const features = Object.entries(FEATURES_TITLES);
 
@@ -11,26 +19,35 @@ type Props = {
 };
 
 const FeaturesSelector = ({ feature }: Props) => {
+  const textColor = useColorModeValue("#0f0a19", "#ffffff");
+  const bgColor = useColorModeValue("gray.200", "gray.800");
+
   const navigate = useNavigate();
   const handleSelector = (name: FeatureNames) => {
     navigate(`/feature/${name}`);
   };
 
   return (
-    <Box ml={2} mb={4}>
+    <Box>
       <Menu isLazy>
-        <MenuButton as={Button} rightIcon={<ArrowDownIcon />}>
-          {feature}
-        </MenuButton>
-        <MenuList bg="#110c1b">
+        <Flex align="center" gap={2}>
+          <Box color={textColor}>Features</Box>
+          <MenuButton color="#3ca877" fontWeight="bold">
+            <Flex align="center" gap={1}>
+              {feature}
+              <TriangleDownIcon boxSize={2.5} color="gray.500" />
+            </Flex>
+          </MenuButton>
+        </Flex>
+        <MenuList>
           {features.map(([feat, title]) => {
             return (
               <MenuItem
                 key={feat}
                 onClick={() => handleSelector(feat as FeatureNames)}
-                color={feat === feature ? "blue.400" : ""}
-                bg={feat === feature ? "gray.700" : "transparent"}
-                _hover={{ color: "blue.400", bg: "gray.900" }}
+                color={feat === feature ? "green.400" : ""}
+                bg={feat === feature ? bgColor : "transparent"}
+                _hover={{ color: "green.400", bg: bgColor }}
               >
                 {title}
               </MenuItem>

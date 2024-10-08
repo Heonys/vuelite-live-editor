@@ -5,3 +5,14 @@ export { VscDebugConsole as ConsoleIcon } from "react-icons/vsc";
 export { TbBrowserCheck as BrowserIcon } from "react-icons/tb";
 export { BsWindowSplit as SplitIcon } from "react-icons/bs";
 export { FaBan as RemoveIcon } from "react-icons/fa";
+export { FaGithub as GithubIcon } from "react-icons/fa";
+
+export {
+  MoonIcon,
+  SunIcon,
+  InfoIcon,
+  DownloadIcon,
+  LinkIcon,
+  CopyIcon,
+  TriangleDownIcon,
+} from "@chakra-ui/icons";

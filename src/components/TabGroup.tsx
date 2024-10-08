@@ -1,6 +1,7 @@
 import { ContextType, FileTypes } from "@/types";
 import TabButton from "./TabButton";
 import { BrowserIcon, ConsoleIcon, Html5Icon, JavascriptIcon, SplitIcon } from "@/icons";
+import { Flex } from "@chakra-ui/react";
 
 type Props = {
   direction: "left" | "right";
@@ -47,7 +48,7 @@ const tabList: TabList = {
 
 const TabGroup = ({ direction, active, onSelect }: Props) => {
   return (
-    <div className="flex border-b border-gray-700 shadow-2xl">
+    <Flex>
       {tabList[direction].map(({ name, type, icon }) => {
         return (
           <TabButton
@@ -60,7 +61,7 @@ const TabGroup = ({ direction, active, onSelect }: Props) => {
           />
         );
       })}
-    </div>
+    </Flex>
   );
 };
 

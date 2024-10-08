@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
 import Editor, { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import type { ContextType, FeatureNames, FileTypes } from "@/types";
 import { CODE_SNIPPETS, createSrcDoc } from "../constants";
 import TabGroup from "../components/TabGroup";
 import useDebounce from "../hooks/useDebounce";
-import FeaturesSelector from "../components/FeaturesSelector";
 import { useParams } from "react-router-dom";
 import Iframe from "@/components/Iframe";
 import Console from "@/components/Console";
@@ -14,6 +13,7 @@ import Console from "@/components/Console";
 const CodeEditor = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const safeId = id || "v-bind";
+  const editorTheme = useColorModeValue("light", "vs-dark");
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const [language, setLanguage] = useState<FileTypes>("html");
   const [context, setContext] = useState<ContextType>("browser");
@@ -64,37 +64,34 @@ const CodeEditor = () => {
   }, [safeId]);
 
   return (
-    <Box minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
-      <FeaturesSelector feature={safeId} />
-      <HStack spacing={4}>
-        <Box w="50%">
-          <TabGroup direction="left" active={language} onSelect={onSelect} />
-          <Editor
-            height="75vh"
-            theme="vs-dark"
-            language={language}
-            value={language === "html" ? htmlContents : jsContents}
-            onMount={onMount}
-            onChange={handleChange}
-          />
-        </Box>
-        <Box w="50%">
-          <TabGroup direction="right" active={language} onSelect={onSelect} />
-          {context === "browser" && <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />}
-          {context === "console" && <Console value={consoleValues} onClear={onClear} />}
-          {context === "split" && (
-            <HStack h="75vh">
-              <Box w="50%">
-                <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />
-              </Box>
-              <Box w="50%">
-                <Console value={consoleValues} onClear={onClear} />
-              </Box>
-            </HStack>
-          )}
-        </Box>
-      </HStack>
-    </Box>
+    <HStack spacing={4}>
+      <Box w="50%" boxShadow="md">
+        <TabGroup direction="left" active={language} onSelect={onSelect} />
+        <Editor
+          height="75vh"
+          theme={editorTheme}
+          language={language}
+          value={language === "html" ? htmlContents : jsContents}
+          onMount={onMount}
+          onChange={handleChange}
+        />
+      </Box>
+      <Box w="50%" boxShadow="md">
+        <TabGroup direction="right" active={context} onSelect={onSelect} />
+        {context === "browser" && <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />}
+        {context === "console" && <Console value={consoleValues} onClear={onClear} />}
+        {context === "split" && (
+          <HStack h="75vh">
+            <Box w="50%">
+              <Iframe srcDoc={debouncedSrcDoc} onConsole={onConsole} />
+            </Box>
+            <Box w="50%">
+              <Console value={consoleValues} onClear={onClear} />
+            </Box>
+          </HStack>
+        )}
+      </Box>
+    </HStack>
   );
 };
 

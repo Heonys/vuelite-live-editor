@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack, Text, useColorModeValue } from "@chakra-ui/react";
 
 type Props<T> = {
   name: string;
@@ -9,10 +9,13 @@ type Props<T> = {
 };
 
 function TabButton<T>({ name, isActive, value, icon, onSelect }: Props<T>) {
+  const activeBgColor = useColorModeValue("bg-gray-200", "bg-gray-800");
+  const textColor = useColorModeValue("#000000", "text-gray-300");
+
   return (
     <button
-      className={`py-2 px-4 text-gray-300 hover:text-white transition duration-300
-      ${isActive ? "bg-gray-800 border-b-2 border-blue-500" : ""}`}
+      className={`py-2 px-4 ${textColor} transition duration-300
+      ${isActive ? `${activeBgColor} border-b-[3.5px] border-blue-500` : ""}`}
       onClick={() => onSelect(value)}
     >
       <HStack>
