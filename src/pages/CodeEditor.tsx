@@ -6,7 +6,7 @@ import type { ContextType, FeatureNames, FileTypes } from "@/types";
 import { CODE_SNIPPETS, createSrcDoc } from "../constants";
 import TabGroup from "../components/TabGroup";
 import useDebounce from "../hooks/useDebounce";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Iframe from "@/components/Iframe";
 import Console from "@/components/Console";
 import { useRecoilState } from "recoil";
@@ -15,13 +15,14 @@ import { htmlState, jsState } from "@/atom/codeAtom";
 const CodeEditor = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const safeId = id || "v-bind";
+  const navigate = useNavigate();
+
   const editorTheme = useColorModeValue("light", "vs-dark");
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const [language, setLanguage] = useState<FileTypes>("html");
   const [context, setContext] = useState<ContextType>("browser");
   const [consoleValues, setConsoleValues] = useState<any[]>([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
-
   const [htmlContents, setHtmlContents] = useRecoilState(htmlState);
   const [jsContents, setJsContents] = useRecoilState(jsState);
 
@@ -65,10 +66,14 @@ const CodeEditor = () => {
   };
 
   useEffect(() => {
-    setHtmlContents(CODE_SNIPPETS[safeId].html);
-    setJsContents(CODE_SNIPPETS[safeId].javascript);
+    if (CODE_SNIPPETS[safeId]) {
+      setHtmlContents(CODE_SNIPPETS[safeId].html);
+      setJsContents(CODE_SNIPPETS[safeId].javascript);
+    } else {
+      navigate("/", { replace: true });
+    }
     onClear();
-  }, [safeId, setHtmlContents, setJsContents]);
+  }, [safeId, setHtmlContents, setJsContents, navigate]);
 
   return (
     <HStack spacing={2}>

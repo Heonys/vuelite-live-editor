@@ -2,7 +2,7 @@ import { Flex, IconButton, Tooltip, useColorMode, useColorModeValue } from "@cha
 import FeaturesSelector from "./FeaturesSelector";
 import { FeatureNames } from "@/types";
 import { useParams } from "react-router-dom";
-import { GithubIcon, SunIcon, MoonIcon, DownloadIcon, LinkIcon } from "@/icons";
+import { GithubIcon, SunIcon, MoonIcon, DownloadIcon } from "@/icons";
 import { useZipDownload } from "@/hooks/useZipDownload";
 
 const NavActions = () => {
@@ -10,12 +10,6 @@ const NavActions = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const buttonColor = useColorModeValue("gray.700", "gray.300");
   const { downloadProject } = useZipDownload();
-
-  const handleShareadLink = () => {
-    // const url = `${window.location.origin}${location.pathname}?html=${encodedHtml}&js=${encodedJs}`;
-    // console.log(url);
-    // navigate(`${location.pathname}?html=${encodedHtml}&js=${encodedJs}`);
-  };
 
   return (
     <Flex align="center" gap={1}>
@@ -40,17 +34,6 @@ const NavActions = () => {
           transition="transform 0.2s ease"
           _hover={{ transform: "scale(1.2)" }}
           onClick={downloadProject}
-        />
-      </Tooltip>
-      <Tooltip label="Copy sharable URL">
-        <IconButton
-          variant="ghost"
-          color={buttonColor}
-          icon={<LinkIcon boxSize={5} />}
-          aria-label="link"
-          transition="transform 0.2s ease"
-          _hover={{ transform: "scale(1.2)" }}
-          onClick={handleShareadLink}
         />
       </Tooltip>
       <Tooltip label="View on Github">
