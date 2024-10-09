@@ -7,9 +7,6 @@ export { BsWindowSplit as SplitIcon } from "react-icons/bs";
 export { FaBan as RemoveIcon } from "react-icons/fa";
 export { FaGithub as GithubIcon } from "react-icons/fa";
 
-export { LuArrowRightToLine as RightIcon } from "react-icons/lu";
-export { LuArrowLeftToLine as LeftIcon } from "react-icons/lu";
-
 export {
   MoonIcon,
   SunIcon,

@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { pageRoutes } from "./path";
-import CodeEditor from "@/pages/CodeEditor";
+import CodeEditor from "@/pages/CodeEditorPage";
 import App from "@/App";
 import ErrorPage from "@/pages/ErrorPage";
 

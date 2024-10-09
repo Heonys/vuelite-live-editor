@@ -289,6 +289,7 @@ export const CODE_SNIPPETS: Record<FeatureNames, CodeSnipet> = {
   },
   "lifecycle-hooks": {
     html: `<div id="app">
+    <div>Please check the console.</div>
     <p>count: {{ count }}</p>
     <button @click="increment">++</button>
 </div>`,

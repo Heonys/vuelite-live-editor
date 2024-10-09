@@ -12,7 +12,7 @@ const NavActions = () => {
   const { downloadProject } = useZipDownload();
 
   return (
-    <Flex align="center" gap={1}>
+    <Flex align="center" gap={0.5}>
       <FeaturesSelector feature={id || "v-bind"} />
       <Tooltip label="Toggle dark mode">
         <IconButton

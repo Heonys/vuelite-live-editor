@@ -10,7 +10,7 @@ type Props<T> = {
 
 function TabButton<T>({ name, isActive, value, icon, onSelect }: Props<T>) {
   const activeBgColor = useColorModeValue("bg-gray-200", "bg-gray-800");
-  const textColor = useColorModeValue("#000000", "text-gray-300");
+  const textColor = useColorModeValue("text-gray-800", "text-gray-300");
 
   return (
     <button
