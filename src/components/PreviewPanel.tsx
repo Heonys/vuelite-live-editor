@@ -1,15 +1,14 @@
-import Iframe from "./Iframe";
-import Console from "./Console";
 import { Box, HStack } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ContextType, FeatureNames } from "@/types";
-import { useRecoilValue } from "recoil";
+import { PreviewTab, Iframe, Console } from "@/components/index";
 import { htmlState, jsState } from "@/atom/codeAtom";
 import { createSrcDoc } from "@/constants";
 import useDebounce from "@/hooks/useDebounce";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import PreviewTab from "./PreviewTab";
 
 const PreviewPanel = () => {
   const { id } = useParams<{ id: FeatureNames }>();

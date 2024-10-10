@@ -1,5 +1,5 @@
-import { getLatestVersion } from "@/api/npm";
 import { useEffect, useState } from "react";
+import { getLatestVersion } from "@/api/npm";
 
 export const useVersion = (name: string) => {
   const [value, setValue] = useState("");

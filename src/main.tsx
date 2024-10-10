@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { ChakraProvider } from "@chakra-ui/react";
-import theme from "./theme.ts";
 import { RouterProvider } from "react-router-dom";
+
+import theme from "./theme.ts";
 import router from "./routes/indes.tsx";
 import "./index.css";
 

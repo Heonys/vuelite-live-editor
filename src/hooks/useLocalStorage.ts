@@ -1,5 +1,5 @@
-import { isFuction } from "@/utils";
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { isFuction } from "@/utils";
 
 const PREFIX = "vuelite-editor-";
 

@@ -8,9 +8,10 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import { FEATURES_TITLES } from "../constants";
 import { FeatureNames } from "@/types";
-import { useNavigate } from "react-router-dom";
 import { SelectIcon } from "@/icons";
 
 const features = Object.entries(FEATURES_TITLES);

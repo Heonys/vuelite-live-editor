@@ -1,6 +1,7 @@
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+
 import { RemoveIcon } from "@/icons";
 import { isPrimitive } from "@/utils";
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 
 type Props = {
   value: any[];

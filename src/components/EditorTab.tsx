@@ -1,7 +1,8 @@
-import { Html5Icon, JavascriptIcon } from "@/icons";
 import { Box, Flex } from "@chakra-ui/react";
-import TabButton from "./TabButton";
+
+import { Html5Icon, JavascriptIcon } from "@/icons";
 import { FileTypes } from "@/types";
+import { TabButton } from "@/components/index";
 
 type Props = {
   active: FileTypes;

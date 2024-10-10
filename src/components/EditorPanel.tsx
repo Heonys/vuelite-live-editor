@@ -1,13 +1,14 @@
 import Editor, { OnMount } from "@monaco-editor/react";
-import type { editor } from "monaco-editor";
-import { Box, useColorModeValue } from "@chakra-ui/react";
-import { FeatureNames, FileTypes } from "@/types";
 import { useEffect, useRef, useState } from "react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import { htmlState, jsState } from "@/atom/codeAtom";
 import { useNavigate, useParams } from "react-router-dom";
+import type { editor } from "monaco-editor";
+
+import { FeatureNames, FileTypes } from "@/types";
+import { htmlState, jsState } from "@/atom/codeAtom";
 import { CODE_SNIPPETS } from "@/constants";
-import EditorTab from "./EditorTab";
+import { EditorTab } from "@/components/index";
 
 const EditorPanel = () => {
   const { id } = useParams<{ id: FeatureNames }>();

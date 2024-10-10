@@ -1,6 +1,5 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import PreviewPanel from "@/components/PreviewPanel";
-import EditorPanel from "@/components/EditorPanel";
+import { EditorPanel, PreviewPanel } from "@/components/index";
 
 const CodeEditor = () => {
   return (

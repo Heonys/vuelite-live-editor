@@ -1,7 +1,8 @@
+import { Box, Flex } from "@chakra-ui/react";
+
 import { BrowserIcon, ConsoleIcon, SplitIcon } from "@/icons";
 import { ContextType } from "@/types";
-import { Box, Flex } from "@chakra-ui/react";
-import TabButton from "./TabButton";
+import { TabButton } from "@/components/index";
 
 type Props = {
   active: ContextType;
