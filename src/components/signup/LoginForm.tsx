@@ -18,13 +18,17 @@ const LoginForm = () => {
       bg={bgColor}
     >
       <InputForm label="Email" placeholder="email" icon={<EmailIcon boxSize={4} />} />
-      <InputForm label="Password" placeholder="password" icon={<LockIcon boxSize={4} />} />
-
+      <InputForm
+        isPassword={true}
+        label="Password"
+        placeholder="password"
+        icon={<LockIcon boxSize={4} />}
+      />
       <motion.div
         whileTap={{ scale: 0.95 }}
         className="flex items-center justify-center py-3 w-full rounded-xl cursor-pointer bg-[#3ca877] text-white"
       >
-        <p>Sign Up</p>
+        <p>Login</p>
       </motion.div>
 
       <p className="text-sm flex items-center justify-center gap-3">

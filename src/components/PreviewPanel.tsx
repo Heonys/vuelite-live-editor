@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ContextType, FeatureNames } from "@/types";
 import { PreviewTab, Iframe, Console } from "@/components/index";
-import { htmlState, jsState } from "@/atom/codeAtom";
+import { htmlState, jsState, vueliteVersion } from "@/atom/codeAtom";
 import { createSrcDoc } from "@/constants";
 import useDebounce from "@/hooks/useDebounce";
 
@@ -16,9 +16,10 @@ const PreviewPanel = () => {
 
   const htmlContents = useRecoilValue(htmlState);
   const jsContents = useRecoilValue(jsState);
+  const version = useRecoilValue(vueliteVersion);
   const [consoleValues, setConsoleValues] = useState<any[]>([]);
 
-  const srcDoc = createSrcDoc(htmlContents, jsContents);
+  const srcDoc = createSrcDoc(htmlContents, jsContents, version);
   const debouncedSrcDoc = useDebounce(srcDoc, 500);
 
   const onClear = () => {

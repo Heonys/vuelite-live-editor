@@ -53,7 +53,16 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+		keyframes: {
+			fillStar: {
+				"0%": { transform: "rotateY(0deg) scale(1)" },
+				"100%": { transform: "rotateY(360deg) scale(1)" },
+			},
+			},
+			animation: {
+			fillStar: "fillStar 1s ease-in-out",
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

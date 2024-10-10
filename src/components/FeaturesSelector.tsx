@@ -3,8 +3,9 @@ import {
   Flex,
   Menu,
   MenuButton,
-  MenuItem,
+  MenuItemOption,
   MenuList,
+  MenuOptionGroup,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -30,36 +31,37 @@ const FeaturesSelector = ({ feature }: Props) => {
   };
 
   return (
-    <Box>
-      <Menu isLazy>
-        <Flex align="center" gap={2}>
-          <Box color={textColor}>
-            <Text fontWeight="semibold">Pick a Feature</Text>
-          </Box>
-          <MenuButton color="#3ca877" fontWeight="bold">
-            <Flex align="center" gap={1}>
-              <Text as="u">{feature}</Text>
-              <SelectIcon boxSize={2.5} color="gray.500" />
-            </Flex>
-          </MenuButton>
-        </Flex>
-        <MenuList>
+    <Menu isLazy>
+      <Flex align="center" gap={2} mr={1}>
+        <Box color={textColor}>
+          <Text fontWeight="semibold">Code Snippets</Text>
+        </Box>
+        <MenuButton color="#3ca877" fontWeight="bold">
+          <Flex align="center" gap={1}>
+            <Text as="u">{feature}</Text>
+            <SelectIcon boxSize={2.5} color="gray.500" />
+          </Flex>
+        </MenuButton>
+      </Flex>
+      <MenuList>
+        <MenuOptionGroup defaultValue={feature} type="radio">
           {features.map(([feat, title]) => {
             return (
-              <MenuItem
+              <MenuItemOption
                 key={feat}
+                value={feat}
                 onClick={() => handleSelector(feat as FeatureNames)}
                 color={feat === feature ? "green.400" : ""}
                 bg={feat === feature ? bgColor : "transparent"}
                 _hover={{ color: "green.400", bg: bgColor }}
               >
                 {title}
-              </MenuItem>
+              </MenuItemOption>
             );
           })}
-        </MenuList>
-      </Menu>
-    </Box>
+        </MenuOptionGroup>
+      </MenuList>
+    </Menu>
   );
 };
 

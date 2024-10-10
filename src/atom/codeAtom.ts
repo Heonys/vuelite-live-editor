@@ -19,14 +19,20 @@ export const encodedUriState = selector<[string, string]>({
   },
 });
 
+export const vueliteVersion = atom({
+  key: "vueliteVersion",
+  default: "@latest",
+});
+
 export const srcDocState = selector({
   key: "srcDocState",
   get: ({ get }) => {
     const html = get(htmlState);
     const js = get(jsState);
+    const versoin = get(vueliteVersion);
     return `  
     <html>
-        <head><script src="https://unpkg.com/vue-lite-js@latest"></script></head>
+        <head><script src="https://unpkg.com/vue-lite-js${versoin}"></script></head>
         <script>
           const _log = console.log;
           console.log = function (...rest) {

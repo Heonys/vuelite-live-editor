@@ -1,4 +1,4 @@
-import { FeatureNames, CodeSnipet } from "./types";
+import type { FeatureNames, CodeSnipet, Version } from "./types";
 
 export const FEATURES_TITLES: Record<FeatureNames, string> = {
   "v-bind": "Binding Data to Attributes (v-bind)",
@@ -15,6 +15,18 @@ export const FEATURES_TITLES: Record<FeatureNames, string> = {
   ref: "Reference to Reactive Data (ref)",
   "component-based": "Component-Based Architecture",
   "composition-api": "Composition API",
+};
+
+export const VUELITE_VERSION: { [K in Version]: string } = {
+  "@latest": "@latest",
+  "v2.0.0": "@2.0.0",
+  "v1.7.2": "@1.7.2",
+  "v1.6.0": "@1.6.0",
+  "v1.5.6": "@1.5.6",
+  "v1.4.3": "@1.4.3",
+  "v1.3.0": "@1.3.0",
+  "v1.2.1": "@1.2.1",
+  "v1.0.0": "@1.0.0",
 };
 
 export const CODE_SNIPPETS: Record<FeatureNames, CodeSnipet> = {
@@ -480,10 +492,10 @@ createApp({
   },
 };
 
-export function createSrcDoc(htmlContents: string, jsContents: string) {
+export function createSrcDoc(htmlContents: string, jsContents: string, version: string) {
   return `
     <html>
-      <head><script src="https://unpkg.com/vue-lite-js@latest"></script></head>
+      <head><script src="https://unpkg.com/vue-lite-js${version}"></script></head>
       <script>
         const _log = console.log;
         console.log = function (...rest) {
@@ -493,12 +505,14 @@ export function createSrcDoc(htmlContents: string, jsContents: string) {
       </script>
       <body>${htmlContents}</body>
       <script>
-        for (const key in Vuelite) {
-            if (Vuelite.hasOwnProperty(key)) {
-                window[key] = Vuelite[key];
+        if("${version}" === "@latest") {
+            for (const key in Vuelite) {
+                if (Vuelite.hasOwnProperty(key)) {
+                    window[key] = Vuelite[key];
+                }
             }
+            window.Vuelite = Vuelite.default 
         }
-        window.Vuelite = Vuelite.default
         ${jsContents}
       </script>
     </html>`;

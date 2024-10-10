@@ -9,6 +9,11 @@ export { FaGithub as GithubIcon } from "react-icons/fa";
 export { FaEye as EyeIcon } from "react-icons/fa";
 export { FaEyeSlash as EyeSlashIcon } from "react-icons/fa";
 export { FcGoogle as GoogleIcon } from "react-icons/fc";
+export { MdLogin as LoginIcon } from "react-icons/md";
+export { MdLogout as LogoutIcon } from "react-icons/md";
+
+export { HiDocumentAdd as SaveIcon } from "react-icons/hi";
+export { HiDocumentDownload as LoadIcon } from "react-icons/hi";
 
 export {
   MoonIcon,
@@ -20,4 +25,5 @@ export {
   TriangleDownIcon as SelectIcon,
   EmailIcon,
   LockIcon,
+  HamburgerIcon,
 } from "@chakra-ui/icons";

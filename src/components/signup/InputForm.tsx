@@ -1,16 +1,18 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
-import { EyeIcon } from "lucide-react";
+import { EyeIcon, EyeOff } from "lucide-react";
 import { ReactElement, useState } from "react";
-
+import { motion } from "framer-motion";
 type Props = {
   label: string;
   placeholder: string;
   icon: ReactElement;
+  isPassword?: boolean;
 };
 
-const InputForm = ({ label, icon, placeholder }: Props) => {
+const InputForm = ({ label, icon, placeholder, isPassword }: Props) => {
   const textColor = useColorModeValue("blackAlpha.700", "#D1D5DB");
   const [value, setValue] = useState("");
+  const [show, setShow] = useState(false);
 
   return (
     <Flex direction="column" justify="start" align="start" gap={1}>
@@ -31,9 +33,15 @@ const InputForm = ({ label, icon, placeholder }: Props) => {
           value={value}
           onChange={(event) => setValue(event.target.value)}
         />
-        <Box cursor="pointer">
-          <EyeIcon color="#555" size={20} />
-        </Box>
+        {isPassword && (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="cursor-pointer"
+            onClick={() => setShow((prev) => !prev)}
+          >
+            {show ? <EyeOff color="#555" size={20} /> : <EyeIcon color="#555" size={20} />}
+          </motion.div>
+        )}
       </Flex>
     </Flex>
   );
