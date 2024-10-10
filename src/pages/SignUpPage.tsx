@@ -1,12 +1,11 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { LoginForm } from "@/components/signup";
+import { Flex } from "@chakra-ui/react";
 
 const SignUpPage = () => {
   return (
-    <Box w="full py-8">
-      <Flex direction="column" justify="center" align="center">
-        SignUpPage
-      </Flex>
-    </Box>
+    <Flex justify="center" align="center" w="full" className="flex-1">
+      <LoginForm />
+    </Flex>
   );
 };
 

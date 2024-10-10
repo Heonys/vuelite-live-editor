@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 
 import { Navbar } from "@/components/index";
 
 function App() {
-  const bgColor = useColorModeValue("#ffffff", "#0f0a19");
+  const bgColor = useColorModeValue("#ffffff", "#131418");
 
   return (
-    <Box minH="100vh" bg={bgColor} color="gray.500" px={3}>
+    <Flex direction="column" minH="100vh" bg={bgColor} color="gray.500" px={3}>
       <Navbar />
       <Outlet />
-    </Box>
+    </Flex>
   );
 }
 

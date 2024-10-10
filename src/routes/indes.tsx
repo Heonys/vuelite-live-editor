@@ -4,7 +4,7 @@ import { pageRoutes } from "./path";
 import App from "@/App";
 import CodeEditor from "@/pages/CodeEditorPage";
 import ErrorPage from "@/pages/ErrorPage";
-import SignUpPage from "@/pages/SignupPage";
+import SignUpPage from "@/pages/SignUpPage";
 
 const router = createBrowserRouter([
   {

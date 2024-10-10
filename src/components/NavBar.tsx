@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { value } = useVersion("vue-lite-js");
-  const bgColor = useColorModeValue("#ffffff", "#0f0a19");
+  const bgColor = useColorModeValue("#ffffff", "#131418");
   const textColor = useColorModeValue("#0f0a19", "#ffffff");
 
   return (
