@@ -11,6 +11,7 @@ export { FaEyeSlash as EyeSlashIcon } from "react-icons/fa";
 export { FcGoogle as GoogleIcon } from "react-icons/fc";
 export { MdLogin as LoginIcon } from "react-icons/md";
 export { MdLogout as LogoutIcon } from "react-icons/md";
+export { IoMdShare as ShareIcon } from "react-icons/io";
 
 export { HiDocumentAdd as SaveIcon } from "react-icons/hi";
 export { HiDocumentDownload as LoadIcon } from "react-icons/hi";
@@ -20,7 +21,6 @@ export {
   SunIcon,
   InfoIcon,
   DownloadIcon,
-  LinkIcon,
   CopyIcon,
   TriangleDownIcon as SelectIcon,
   EmailIcon,
