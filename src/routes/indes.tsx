@@ -9,23 +9,25 @@ import SignUpPage from "@/pages/SignUpPage";
 const router = createBrowserRouter([
   {
     path: pageRoutes.root,
-    element: <Navigate to={pageRoutes.main} replace />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "feature",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Navigate to="v-bind" replace /> },
-      { path: ":id", element: <CodeEditor /> },
+      {
+        path: "",
+        element: <Navigate to={pageRoutes.main} replace />,
+      },
+      {
+        path: "feature",
+        children: [
+          { index: true, element: <Navigate to="v-bind" replace /> },
+          { path: ":id", element: <CodeEditor /> },
+        ],
+      },
+      {
+        path: "signup",
+        element: <SignUpPage />,
+      },
     ],
-  },
-  {
-    path: "signup",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [{ index: true, element: <SignUpPage /> }],
   },
 ]);
 
