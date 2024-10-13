@@ -9,10 +9,11 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useRecoilState } from "recoil";
+
 import { VUELITE_VERSION } from "../constants";
 import { SelectIcon } from "@/icons";
-import { vueliteVersion } from "@/atom/codeAtom";
-import { useRecoilState } from "recoil";
+import { vueliteVersionAtom } from "@/atom/codeAtom";
 import { Version } from "@/types";
 import VersionPopover from "./VersionPopover";
 
@@ -21,7 +22,7 @@ const features = Object.entries(VUELITE_VERSION);
 const VersionSelector = () => {
   const textColor = useColorModeValue("#0f0a19", "#ffffff");
   const bgColor = useColorModeValue("gray.200", "gray.800");
-  const [version, setVersion] = useRecoilState(vueliteVersion);
+  const [version, setVersion] = useRecoilState(vueliteVersionAtom);
 
   return (
     <Flex gap={0}>

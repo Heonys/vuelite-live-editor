@@ -2,11 +2,11 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { useRecoilValue } from "recoil";
 
-import { htmlState, jsState } from "@/atom/codeAtom";
+import { htmlAtom, jsAtom } from "@/atom/codeAtom";
 
 export const useZipDownload = () => {
-  const html = useRecoilValue(htmlState);
-  const js = useRecoilValue(jsState);
+  const html = useRecoilValue(htmlAtom);
+  const js = useRecoilValue(jsAtom);
 
   const downloadProject = async () => {
     const zip = new JSZip();

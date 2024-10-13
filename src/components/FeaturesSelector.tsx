@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { FEATURES_TITLES } from "../constants";
 import { FeatureNames } from "@/types";
 import { SelectIcon } from "@/icons";
+import { isFeatures } from "@/utils";
 
 const features = Object.entries(FEATURES_TITLES);
 
@@ -38,7 +39,7 @@ const FeaturesSelector = ({ feature }: Props) => {
         </Box>
         <MenuButton color="#3ca877" fontWeight="bold">
           <Flex align="center" gap={1}>
-            <Text as="u">{feature}</Text>
+            <Text as="u">{isFeatures(feature) ? feature : "select"}</Text>
             <SelectIcon boxSize={2.5} color="gray.500" />
           </Flex>
         </MenuButton>

@@ -1,4 +1,3 @@
-import { vueliteVersion } from "@/atom/codeAtom";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -15,10 +14,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
+import { vueliteVersionAtom } from "@/atom/codeAtom";
 
 const VersionPopover = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const setVersion = useSetRecoilState(vueliteVersion);
+  const setVersion = useSetRecoilState(vueliteVersionAtom);
 
   return (
     <Popover onOpen={onOpen} onClose={onClose} isOpen={isOpen}>

@@ -1,35 +1,35 @@
 import { atom, selector } from "recoil";
 
-export const htmlState = atom({
+export const htmlAtom = atom({
   key: "htmlState",
   default: "",
 });
 
-export const jsState = atom({
+export const jsAtom = atom({
   key: "jsState",
   default: "",
 });
 
-export const encodedUriState = selector<[string, string]>({
+export const encodedUriSelector = selector<[string, string]>({
   key: "encodedUri",
   get: ({ get }) => {
-    const encodedHtml = encodeURIComponent(get(htmlState));
-    const encodedJs = encodeURIComponent(get(jsState));
+    const encodedHtml = encodeURIComponent(get(htmlAtom));
+    const encodedJs = encodeURIComponent(get(jsAtom));
     return [encodedHtml, encodedJs];
   },
 });
 
-export const vueliteVersion = atom({
+export const vueliteVersionAtom = atom({
   key: "vueliteVersion",
   default: "@latest",
 });
 
-export const srcDocState = selector({
+export const srcDocSelector = selector({
   key: "srcDocState",
   get: ({ get }) => {
-    const html = get(htmlState);
-    const js = get(jsState);
-    const versoin = get(vueliteVersion);
+    const html = get(htmlAtom);
+    const js = get(jsAtom);
+    const versoin = get(vueliteVersionAtom);
     return `  
     <html>
         <head><script src="https://unpkg.com/vue-lite-js${versoin}"></script></head>
@@ -51,5 +51,13 @@ export const srcDocState = selector({
           ${js}
         </script>
     </html>`;
+  },
+});
+
+export const encodedSrcDocSelector = selector({
+  key: "encodedSrcDoc",
+  get: ({ get }) => {
+    const srcDoc = get(srcDocSelector);
+    return encodeURIComponent(srcDoc);
   },
 });

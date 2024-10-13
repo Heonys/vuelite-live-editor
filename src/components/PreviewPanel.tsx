@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ContextType, FeatureNames } from "@/types";
 import { PreviewTab, Iframe, Console } from "@/components/index";
-import { htmlState, jsState, vueliteVersion } from "@/atom/codeAtom";
+import { htmlAtom, jsAtom, vueliteVersionAtom } from "@/atom/codeAtom";
 import { createSrcDoc } from "@/constants";
 import useDebounce from "@/hooks/useDebounce";
 
@@ -14,9 +14,9 @@ const PreviewPanel = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const [context, setContext] = useState<ContextType>("browser");
 
-  const htmlContents = useRecoilValue(htmlState);
-  const jsContents = useRecoilValue(jsState);
-  const version = useRecoilValue(vueliteVersion);
+  const htmlContents = useRecoilValue(htmlAtom);
+  const jsContents = useRecoilValue(jsAtom);
+  const version = useRecoilValue(vueliteVersionAtom);
   const [consoleValues, setConsoleValues] = useState<any[]>([]);
 
   const srcDoc = createSrcDoc(htmlContents, jsContents, version);

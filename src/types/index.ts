@@ -1,18 +1,21 @@
-export type FeatureNames =
-  | "v-bind"
-  | "v-model"
-  | "another-directive"
-  | "directive-shortcut"
-  | "inline-format-bind"
-  | "template-syntax"
-  | "expression-support"
-  | "conditional-rendering"
-  | "list-rendering"
-  | "lifecycle-hooks"
-  | "watch"
-  | "ref"
-  | "component-based"
-  | "composition-api";
+export const featureNames = [
+  "v-bind",
+  "v-model",
+  "another-directive",
+  "directive-shortcut",
+  "inline-format-bind",
+  "template-syntax",
+  "expression-support",
+  "conditional-rendering",
+  "list-rendering",
+  "lifecycle-hooks",
+  "watch",
+  "ref",
+  "component-based",
+  "composition-api",
+] as const;
+
+export type FeatureNames = (typeof featureNames)[number];
 
 export type CodeSnipet = {
   html: string;
@@ -20,7 +23,7 @@ export type CodeSnipet = {
   css?: string;
 };
 
-export type FileTypes = "javascript" | "css" | "html";
+export type FileTypes = "javascript" | "html";
 
 export type ContextType = "browser" | "console" | "split";
 

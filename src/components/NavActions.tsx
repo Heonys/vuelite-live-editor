@@ -1,11 +1,38 @@
-import { Flex, IconButton, Tooltip, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { GithubIcon, SunIcon, MoonIcon, DownloadIcon, ShareIcon } from "@/icons";
+import {
+  Flex,
+  IconButton,
+  Tooltip,
+  useColorMode,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
+
 import { useZipDownload } from "@/hooks/useZipDownload";
+import { encodedUriSelector } from "@/atom/codeAtom";
+import { createSource } from "@/api/firebase";
+import { writeClipboardText } from "@/utils";
+import { GithubIcon, SunIcon, MoonIcon, DownloadIcon, ShareIcon } from "@/icons";
 
 const NavActions = () => {
+  const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
   const buttonColor = useColorModeValue("gray.700", "gray.300");
   const { downloadProject } = useZipDownload();
+  const [encodedHTML, encodedJS] = useRecoilValue(encodedUriSelector);
+
+  const handleShare = async () => {
+    const id = await createSource(encodedHTML, encodedJS);
+    writeClipboardText(id);
+
+    toast({
+      title: "URL copied to clipboard!",
+      position: "top",
+      status: "info",
+      duration: 2000,
+    });
+  };
+
   return (
     <Flex align="center" gap={0.5}>
       <Tooltip label="Toggle dark mode">
@@ -21,13 +48,13 @@ const NavActions = () => {
       </Tooltip>
       <Tooltip label="Copy sharable URL">
         <IconButton
-          disabled
           variant="ghost"
           color={buttonColor}
           icon={<ShareIcon size={24} />}
           aria-label="download"
           transition="transform 0.2s ease"
           _hover={{ transform: "scale(1.2)" }}
+          onClick={handleShare}
         />
       </Tooltip>
 
@@ -55,30 +82,6 @@ const NavActions = () => {
           _hover={{ transform: "scale(1.2)" }}
         />
       </Tooltip>
-      {/* <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label="Options"
-          icon={<HamburgerIcon boxSize={6} />}
-          variant="ghost"
-          color={buttonColor}
-        />
-        <MenuList>
-          {user ? (
-            <MenuItem icon={<LogoutIcon size={22} />} onClick={logout}>
-              Logout
-            </MenuItem>
-          ) : (
-            <MenuItem icon={<LoginIcon size={22} />} onClick={() => navigate("/signup")}>
-              Login
-            </MenuItem>
-          )}
-
-          <MenuDivider />
-          <MenuItem icon={<SaveIcon size={22} />}>Save Code</MenuItem>
-          <MenuItem icon={<LoadIcon size={22} />}>Load Previous Code</MenuItem>
-        </MenuList>
-      </Menu> */}
     </Flex>
   );
 };

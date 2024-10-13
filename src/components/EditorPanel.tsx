@@ -2,24 +2,26 @@ import Editor, { OnMount } from "@monaco-editor/react";
 import { useEffect, useRef, useState } from "react";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import type { editor } from "monaco-editor";
 
 import { FeatureNames, FileTypes } from "@/types";
-import { htmlState, jsState } from "@/atom/codeAtom";
+import { htmlAtom, jsAtom } from "@/atom/codeAtom";
 import { CODE_SNIPPETS } from "@/constants";
 import { EditorTab } from "@/components/index";
+import { getDecodedSouce } from "@/api/firebase";
 
 const EditorPanel = () => {
   const { id } = useParams<{ id: FeatureNames }>();
   const safeId = id || "v-bind";
+  const { hash } = useLocation();
   const navigate = useNavigate();
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const [file, setFile] = useState<FileTypes>("html");
 
   const editorTheme = useColorModeValue("light", "vs-dark");
-  const [htmlContents, setHtmlContents] = useRecoilState(htmlState);
-  const [jsContents, setJsContents] = useRecoilState(jsState);
+  const [htmlContents, setHtmlContents] = useRecoilState(htmlAtom);
+  const [jsContents, setJsContents] = useRecoilState(jsAtom);
 
   const onMount: OnMount = (editor) => {
     editorRef.current = editor;
@@ -31,24 +33,28 @@ const EditorPanel = () => {
   };
 
   const handleChange = (value?: string) => {
-    switch (file) {
-      case "html": {
-        return setHtmlContents(value || "");
-      }
-      case "javascript": {
-        return setJsContents(value || "");
-      }
+    const contentUpdater = { html: setHtmlContents, javascript: setJsContents };
+    const updateContent = contentUpdater[file];
+    if (updateContent) {
+      updateContent(value || "");
     }
   };
 
   useEffect(() => {
-    if (CODE_SNIPPETS[safeId]) {
+    if (hash) {
+      const handler = async () => {
+        const { html, js } = await getDecodedSouce(hash);
+        setHtmlContents(html);
+        setJsContents(js);
+      };
+      handler();
+    } else if (CODE_SNIPPETS[safeId]) {
       setHtmlContents(CODE_SNIPPETS[safeId].html);
       setJsContents(CODE_SNIPPETS[safeId].javascript);
     } else {
       navigate("/", { replace: true });
     }
-  }, [safeId, setHtmlContents, setJsContents, navigate]);
+  }, [safeId, setHtmlContents, setJsContents, navigate, hash]);
 
   return (
     <Box boxShadow="md">
