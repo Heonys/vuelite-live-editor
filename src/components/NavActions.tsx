@@ -21,15 +21,15 @@ const NavActions = () => {
   const { downloadProject } = useZipDownload();
   const [encodedHTML, encodedJS] = useRecoilValue(encodedUriSelector);
 
-  const handleShare = async () => {
-    const id = await createSource(encodedHTML, encodedJS);
-    writeClipboardText(id);
-
-    toast({
-      title: "URL copied to clipboard!",
-      position: "top",
-      status: "info",
-      duration: 2000,
+  const handleShare = () => {
+    createSource(encodedHTML, encodedJS).then((res) => {
+      writeClipboardText(res);
+      toast({
+        title: "URL copied to clipboard!",
+        position: "top",
+        status: "info",
+        duration: 2000,
+      });
     });
   };
 

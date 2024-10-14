@@ -27,3 +27,10 @@ export const writeClipboardText = async (text: string) => {
 export const isFeatures = (param: any): param is FeatureNames => {
   return featureNames.includes(param);
 };
+
+export function delay<T>(ms: number) {
+  return (value: T) =>
+    new Promise<T>((resolve) => {
+      setTimeout(() => resolve(value), ms);
+    });
+}

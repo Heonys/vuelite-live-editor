@@ -10,6 +10,7 @@ import { htmlAtom, jsAtom } from "@/atom/codeAtom";
 import { CODE_SNIPPETS } from "@/constants";
 import { EditorTab } from "@/components/index";
 import { getDecodedSouce } from "@/api/firebase";
+import { delay } from "@/utils";
 
 const EditorPanel = () => {
   const { id } = useParams<{ id: FeatureNames }>();
@@ -42,12 +43,12 @@ const EditorPanel = () => {
 
   useEffect(() => {
     if (hash) {
-      const handler = async () => {
-        const { html, js } = await getDecodedSouce(hash);
-        setHtmlContents(html);
-        setJsContents(js);
-      };
-      handler();
+      getDecodedSouce(hash)
+        .then(delay(100))
+        .then(({ html, js }) => {
+          setHtmlContents(html);
+          setJsContents(js);
+        });
     } else if (CODE_SNIPPETS[safeId]) {
       setHtmlContents(CODE_SNIPPETS[safeId].html);
       setJsContents(CODE_SNIPPETS[safeId].javascript);
